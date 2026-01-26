@@ -1,0 +1,37 @@
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_datamart
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: openfoodfacts_datamart
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # <--- AJOUT ICI
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+    networks:
+      - etl_network
+
+  etl_spark:
+    build: .
+    container_name: spark_etl_worker
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    environment:
+      MYSQL_URL: "jdbc:mysql://mysql_db:3306/openfoodfacts_datamart?sessionVariables=FOREIGN_KEY_CHECKS=0"
+    networks:
+      - etl_network
+
+networks:
+  etl_network:
+
+volumes:
+  mysql_data:
