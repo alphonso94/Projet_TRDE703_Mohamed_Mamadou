@@ -1,0 +1,54 @@
+services:
+  # --- BASE DE DONNÉES ---
+  mysql-db:
+    image: mysql:8.0
+    container_name: off_mysql
+    environment:
+      MYSQL_DATABASE: openfoodfacts_datamart
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8890:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - off_network
+
+  # --- SPARK MASTER ---
+  spark-master:
+    build: .
+    container_name: off_spark_master
+    stdin_open: true  # IMPORTANT : Garde le conteneur actif
+    tty: true         # IMPORTANT : Alloue un terminal pour éviter le crash
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+    ports:
+      - "8081:8081"
+      - "7077:7077"
+    volumes:
+      - .:/app
+      - ./openfoodfacts.csv:/app/openfoodfacts.csv
+    networks:
+      - off_network
+
+  # --- SPARK WORKER ---
+  spark-worker:
+    build: .
+    container_name: off_spark_worker
+    stdin_open: true
+    tty: true
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+    depends_on:
+      - spark-master
+    networks:
+      - off_network
+
+networks:
+  off_network:
+    driver: bridge
+
+volumes:
+  mysql_data:

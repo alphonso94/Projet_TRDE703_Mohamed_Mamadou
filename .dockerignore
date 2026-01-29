@@ -1,0 +1,3 @@
+openfoodfacts.csv
+*.venv
+.git
