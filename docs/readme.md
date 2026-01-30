@@ -1,4 +1,4 @@
-
+https://github.com/alphonso94/Projet_TRDE703_Mohamed_Mamadou.git
 
 # Projet Open Food Facts - Datamart ETL
 
@@ -57,5 +57,7 @@ La vue **`reporting_kpi`** centralise les 24 indicateurs clés. Vous pouvez la c
 * **Robustesse :** Désactivation temporaire des `UNIQUE_CHECKS` pour absorber les caractères spéciaux internationaux.
 * **SCD Type 1 :** Mise à jour des produits avec le drapeau `is_current` pour assurer l'unicité dans le reporting.
 * **Performance :** Utilisation de `batchsize` réduit (500) pour respecter les contraintes d'espace disque (OS errno 28).
+
+
 
 
