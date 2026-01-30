@@ -1,0 +1,53 @@
+CAHIER DE QUALITÉ DES DONNÉES (DATA QUALITY PLAN)
+Projet : Datamart Open Food Facts
+
+Composant : Pipeline ETL main.py
+
+Cible : MySQL Star Schema (Gold Layer)
+
+1. RÈGLES DE GESTION ET TRANSFORMATIONS
+Le pipeline applique des transformations strictes pour garantir que seules les données fiables atteignent la couche décisionnelle.
+
+A. Intégrité et Unicité
+
+Dédoublonnage Strict : Utilisation d'une fonction de fenêtrage (Window.partitionBy("code")) pour identifier les doublons de codes-barres. Seul l'enregistrement avec le last_modified_t le plus élevé est conservé.
+
+Nettoyage des Codes : Suppression immédiate de toute ligne dont le champ code est NULL ou vide.
+
+Normalisation de la Casse : Conversion en minuscules (F.lower) et suppression des espaces (F.trim) pour les dimensions (Marques, Catégories, Pays) afin d'éviter les doublons sémantiques.
+
+B. Fiabilité Nutritionnelle
+
+Bornage des Valeurs : Application de filtres de vraisemblance sur les nutriments (entre 0 et 100g) et les calories (entre 0 et 900 kcal).
+
+Recalcul du Sel : En cas d'absence de salt_100g, la valeur est extrapolée via la formule salt=sodium×2.5.
+
+2. COUVERTURE ET MÉTRIQUES (COVERAGE)
+Chaque produit est évalué sur sa richesse informative avant d'être intégré à la vue all_kpi.
+
+Score de Complétude (Completeness) : Calculé sur une base 1.00 avec la pondération suivante :
+
+Nom du produit présent : +0.4
+
+Nutriscore renseigné : +0.3
+
+Marque renseignée : +0.3
+
+Indicateur de Santé : Création de la mesure is_healthy_score (Type : Binaire) facilitant le calcul du taux de produits classés A ou B.
+
+3. GESTION DES ANOMALIES ET REJETS
+Le suivi des erreurs est automatisé pour assurer la transparence du pipeline.
+
+Journalisation (Logging) : La table etl_metrics_logs enregistre pour chaque étape le input_count, output_count et le rejected_count.
+
+Sécurité Technique : Troncature préventive des chaînes de caractères à 255 caractères (F.substring) pour prévenir les échecs d'insertion JDBC.
+
+4. COMPARATIF "BEFORE / AFTER"
+Le tableau ci-dessous résume l'impact du pipeline sur la qualité finale du Datamart.
+
+Métrique / Dimension	/Données Brutes (Initial)	/Données Datamart (Final)
+Unicité (Code-barres)	/Multiples versions possibles	/Version unique la plus récente
+Doublons de Marques	   /"Danone", "danone", "DANONE"	    / "danone" (Normalisé)
+Valeurs Nutri.	       /Erreurs de saisie (>100g)	      /  Valeurs bornées (0-100g)
+Nom de produit	       / Multi-langues ou Vides	           /   Priorité FR/EN (Coalesce)
+Observabilité	            /Aucune	                                     /Logs complets 

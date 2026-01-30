@@ -1,218 +1,61 @@
-|-- code: double (nullable = true)
- |-- url: string (nullable = true)
- |-- creator: string (nullable = true)
- |-- created_t: integer (nullable = true)
- |-- created_datetime: timestamp (nullable = true)
- |-- last_modified_t: integer (nullable = true)
- |-- last_modified_datetime: timestamp (nullable = true)
- |-- last_modified_by: string (nullable = true)
- |-- last_updated_t: integer (nullable = true)
- |-- last_updated_datetime: timestamp (nullable = true)
- |-- product_name: string (nullable = true)
- |-- abbreviated_product_name: string (nullable = true)
- |-- generic_name: string (nullable = true)
- |-- quantity: string (nullable = true)
- |-- packaging: string (nullable = true)
- |-- packaging_tags: string (nullable = true)
- |-- packaging_en: string (nullable = true)
- |-- packaging_text: string (nullable = true)
- |-- brands: string (nullable = true)
- |-- brands_tags: string (nullable = true)
- |-- brands_en: string (nullable = true)
- |-- categories: string (nullable = true)
- |-- categories_tags: string (nullable = true)
- |-- categories_en: string (nullable = true)
- |-- origins: string (nullable = true)
- |-- origins_tags: string (nullable = true)
- |-- origins_en: string (nullable = true)
- |-- manufacturing_places: string (nullable = true)
- |-- manufacturing_places_tags: string (nullable = true)
- |-- labels: string (nullable = true)
- |-- labels_tags: string (nullable = true)
- |-- labels_en: string (nullable = true)
- |-- emb_codes: string (nullable = true)
- |-- emb_codes_tags: string (nullable = true)
- |-- first_packaging_code_geo: string (nullable = true)
- |-- cities: string (nullable = true)
- |-- cities_tags: string (nullable = true)
- |-- purchase_places: string (nullable = true)
- |-- stores: string (nullable = true)
- |-- countries: string (nullable = true)
- |-- countries_tags: string (nullable = true)
- |-- countries_en: string (nullable = true)
- |-- ingredients_text: string (nullable = true)
- |-- ingredients_tags: string (nullable = true)
- |-- ingredients_analysis_tags: string (nullable = true)
- |-- allergens: string (nullable = true)
- |-- allergens_en: string (nullable = true)
- |-- traces: string (nullable = true)
- |-- traces_tags: string (nullable = true)
- |-- traces_en: string (nullable = true)
- |-- serving_size: string (nullable = true)
- |-- serving_quantity: double (nullable = true)
- |-- no_nutrition_data: string (nullable = true)
- |-- additives_n: integer (nullable = true)
- |-- additives: string (nullable = true)
- |-- additives_tags: string (nullable = true)
- |-- additives_en: string (nullable = true)
- |-- nutriscore_score: integer (nullable = true)
- |-- nutriscore_grade: string (nullable = true)
- |-- nova_group: integer (nullable = true)
- |-- pnns_groups_1: string (nullable = true)
- |-- pnns_groups_2: string (nullable = true)
- |-- food_groups: string (nullable = true)
- |-- food_groups_tags: string (nullable = true)
- |-- food_groups_en: string (nullable = true)
- |-- states: string (nullable = true)
- |-- states_tags: string (nullable = true)
- |-- states_en: string (nullable = true)
- |-- brand_owner: string (nullable = true)
- |-- environmental_score_score: double (nullable = true)
- |-- environmental_score_grade: string (nullable = true)
- |-- nutrient_levels_tags: string (nullable = true)
- |-- product_quantity: double (nullable = true)
- |-- owner: string (nullable = true)
- |-- data_quality_errors_tags: string (nullable = true)
- |-- unique_scans_n: integer (nullable = true)
- |-- popularity_tags: string (nullable = true)
- |-- completeness: double (nullable = true)
- |-- last_image_t: integer (nullable = true)
- |-- last_image_datetime: timestamp (nullable = true)
- |-- main_category: string (nullable = true)
- |-- main_category_en: string (nullable = true)
- |-- image_url: string (nullable = true)
- |-- image_small_url: string (nullable = true)
- |-- image_ingredients_url: string (nullable = true)
- |-- image_ingredients_small_url: string (nullable = true)
- |-- image_nutrition_url: string (nullable = true)
- |-- image_nutrition_small_url: string (nullable = true)
- |-- energy-kj_100g: double (nullable = true)
- |-- energy-kcal_100g: double (nullable = true)
- |-- energy_100g: double (nullable = true)
- |-- energy-from-fat_100g: double (nullable = true)
- |-- fat_100g: double (nullable = true)
- |-- saturated-fat_100g: double (nullable = true)
- |-- butyric-acid_100g: double (nullable = true)
- |-- caproic-acid_100g: double (nullable = true)
- |-- caprylic-acid_100g: double (nullable = true)
- |-- capric-acid_100g: double (nullable = true)
- |-- lauric-acid_100g: double (nullable = true)
- |-- myristic-acid_100g: double (nullable = true)
- |-- palmitic-acid_100g: double (nullable = true)
- |-- stearic-acid_100g: double (nullable = true)
- |-- arachidic-acid_100g: double (nullable = true)
- |-- behenic-acid_100g: double (nullable = true)
- |-- lignoceric-acid_100g: double (nullable = true)
- |-- cerotic-acid_100g: double (nullable = true)
- |-- montanic-acid_100g: double (nullable = true)
- |-- melissic-acid_100g: double (nullable = true)
- |-- unsaturated-fat_100g: double (nullable = true)
- |-- monounsaturated-fat_100g: double (nullable = true)
- |-- omega-9-fat_100g: double (nullable = true)
- |-- polyunsaturated-fat_100g: double (nullable = true)
- |-- omega-3-fat_100g: double (nullable = true)
- |-- omega-6-fat_100g: double (nullable = true)
- |-- alpha-linolenic-acid_100g: double (nullable = true)
- |-- eicosapentaenoic-acid_100g: double (nullable = true)
- |-- docosahexaenoic-acid_100g: double (nullable = true)
- |-- linoleic-acid_100g: double (nullable = true)
- |-- arachidonic-acid_100g: double (nullable = true)
- |-- gamma-linolenic-acid_100g: double (nullable = true)
- |-- dihomo-gamma-linolenic-acid_100g: double (nullable = true)
- |-- oleic-acid_100g: double (nullable = true)
- |-- elaidic-acid_100g: double (nullable = true)
- |-- gondoic-acid_100g: double (nullable = true)
- |-- mead-acid_100g: double (nullable = true)
- |-- erucic-acid_100g: double (nullable = true)
- |-- nervonic-acid_100g: double (nullable = true)
- |-- trans-fat_100g: double (nullable = true)
- |-- cholesterol_100g: double (nullable = true)
- |-- carbohydrates_100g: double (nullable = true)
- |-- sugars_100g: double (nullable = true)
- |-- added-sugars_100g: double (nullable = true)
- |-- sucrose_100g: double (nullable = true)
- |-- glucose_100g: double (nullable = true)
- |-- fructose_100g: double (nullable = true)
- |-- galactose_100g: double (nullable = true)
- |-- lactose_100g: double (nullable = true)
- |-- maltose_100g: double (nullable = true)
- |-- maltodextrins_100g: double (nullable = true)
- |-- psicose_100g: double (nullable = true)
- |-- starch_100g: double (nullable = true)
- |-- polyols_100g: double (nullable = true)
- |-- erythritol_100g: double (nullable = true)
- |-- isomalt_100g: string (nullable = true)
- |-- maltitol_100g: double (nullable = true)
- |-- sorbitol_100g: double (nullable = true)
- |-- fiber_100g: double (nullable = true)
- |-- soluble-fiber_100g: double (nullable = true)
- |-- polydextrose_100g: double (nullable = true)
- |-- insoluble-fiber_100g: double (nullable = true)
- |-- proteins_100g: double (nullable = true)
- |-- casein_100g: double (nullable = true)
- |-- serum-proteins_100g: double (nullable = true)
- |-- nucleotides_100g: double (nullable = true)
- |-- salt_100g: double (nullable = true)
- |-- added-salt_100g: double (nullable = true)
- |-- sodium_100g: double (nullable = true)
- |-- alcohol_100g: double (nullable = true)
- |-- vitamin-a_100g: double (nullable = true)
- |-- beta-carotene_100g: double (nullable = true)
- |-- vitamin-d_100g: double (nullable = true)
- |-- vitamin-e_100g: double (nullable = true)
- |-- vitamin-k_100g: double (nullable = true)
- |-- vitamin-c_100g: double (nullable = true)
- |-- vitamin-b1_100g: double (nullable = true)
- |-- vitamin-b2_100g: double (nullable = true)
- |-- vitamin-pp_100g: double (nullable = true)
- |-- vitamin-b6_100g: double (nullable = true)
- |-- vitamin-b9_100g: double (nullable = true)
- |-- folates_100g: double (nullable = true)
- |-- vitamin-b12_100g: double (nullable = true)
- |-- biotin_100g: double (nullable = true)
- |-- pantothenic-acid_100g: double (nullable = true)
- |-- silica_100g: double (nullable = true)
- |-- bicarbonate_100g: double (nullable = true)
- |-- potassium_100g: double (nullable = true)
- |-- chloride_100g: double (nullable = true)
- |-- calcium_100g: double (nullable = true)
- |-- phosphorus_100g: double (nullable = true)
- |-- iron_100g: double (nullable = true)
- |-- magnesium_100g: double (nullable = true)
- |-- zinc_100g: double (nullable = true)
- |-- copper_100g: double (nullable = true)
- |-- manganese_100g: double (nullable = true)
- |-- fluoride_100g: double (nullable = true)
- |-- selenium_100g: double (nullable = true)
- |-- chromium_100g: double (nullable = true)
- |-- molybdenum_100g: double (nullable = true)
- |-- iodine_100g: double (nullable = true)
- |-- caffeine_100g: double (nullable = true)
- |-- taurine_100g: double (nullable = true)
- |-- methylsulfonylmethane_100g: string (nullable = true)
- |-- ph_100g: double (nullable = true)
- |-- fruits-vegetables-nuts_100g: double (nullable = true)
- |-- fruits-vegetables-nuts-dried_100g: double (nullable = true)
- |-- fruits-vegetables-nuts-estimate_100g: double (nullable = true)
- |-- fruits-vegetables-nuts-estimate-from-ingredients_100g: double (nullable = true)
- |-- collagen-meat-protein-ratio_100g: double (nullable = true)
- |-- cocoa_100g: double (nullable = true)
- |-- chlorophyl_100g: double (nullable = true)
- |-- carbon-footprint_100g: double (nullable = true)
- |-- carbon-footprint-from-meat-or-fish_100g: double (nullable = true)
- |-- nutrition-score-fr_100g: integer (nullable = true)
- |-- nutrition-score-uk_100g: string (nullable = true)
- |-- glycemic-index_100g: double (nullable = true)
- |-- water-hardness_100g: double (nullable = true)
- |-- choline_100g: double (nullable = true)
- |-- phylloquinone_100g: double (nullable = true)
- |-- beta-glucan_100g: double (nullable = true)
- |-- inositol_100g: double (nullable = true)
- |-- carnitine_100g: double (nullable = true)
- |-- sulphate_100g: double (nullable = true)
- |-- nitrate_100g: double (nullable = true)
- |-- acidity_100g: double (nullable = true)
- |-- carbohydrates-total_100g: double (nullable = true)
 
 
- 
+# Projet Open Food Facts - Datamart ETL
+
+## 📌 Présentation
+
+Ce projet réalise un pipeline **ETL** (Extract, Transform, Load) complet utilisant **PySpark** pour traiter les données mondiales d'Open Food Facts. L'objectif est de transformer des données CSV brutes en un **Star Schema** (schéma en étoile) optimisé pour le reporting décisionnel dans **MySQL** et la visualisation dans **Tableau**.
+
+## 🛠️ Stack Technique
+
+* **Traitement :** Apache Spark (Engine local)
+* **Langage :** Python 3.14
+* **Stockage :** MySQL 8.x
+* **Connectivité :** JDBC MySQL Connector J 8.3.0
+
+## 📂 Structure du Projet
+
+* `/etl` : Script `main.py` contenant toute la logique de nettoyage et de chargement.
+* `/sql` : Scripts DDL pour la création des tables et DML pour la vue analytique `reporting_kpi`.
+* `/docs` : Dictionnaire des données et Note d'architecture.
+* `/tests` : Cahier de recette et logs de qualité.
+
+## 🚀 Guide de Démarrage Rapide
+
+### 1. Préparation de la Base de Données
+
+Exécutez le script `/sql/DDL.sql` dans votre instance MySQL pour initialiser le schéma. Cela créera les tables de dimensions, la table de faits, ainsi que la vue de reporting.
+
+### 2. Configuration de l'ETL
+
+Modifiez les variables `MYSQL_URL` et `DB_PROPERTIES` dans le fichier `etl/main.py` pour correspondre à vos identifiants locaux (par défaut : `root/root` sur le port `8889`).
+
+### 3. Exécution du Pipeline
+
+```bash
+python etl/main.py
+
+```
+
+Le script gère automatiquement :
+
+* Le nettoyage des doublons par code-barres.
+* La normalisation des pays et marques (casse, accents) pour éviter les erreurs d'intégrité.
+* Le calcul du score de complétude des données.
+* L'optimisation de la mémoire pour l'ingestion massive.
+
+## 📈 Analyse et KPI
+
+La vue **`reporting_kpi`** centralise les 24 indicateurs clés. Vous pouvez la connecter directement à Tableau pour visualiser :
+
+* Le Top 20 des produits par marque et par pays 
+* L'évolution hebdomadaire de la complétude des données.
+* La répartition géographique des anomalies nutritionnelles...
+
+## 📝 Choix d'Architecture 
+
+* **Robustesse :** Désactivation temporaire des `UNIQUE_CHECKS` pour absorber les caractères spéciaux internationaux.
+* **SCD Type 1 :** Mise à jour des produits avec le drapeau `is_current` pour assurer l'unicité dans le reporting.
+* **Performance :** Utilisation de `batchsize` réduit (500) pour respecter les contraintes d'espace disque (OS errno 28).
+
+

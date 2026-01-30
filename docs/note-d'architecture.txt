@@ -1,0 +1,44 @@
+
+
+## 🏗️ Note d'Architecture : Datamart Open Food Facts
+
+### 1. Choix Techniques (Stack)
+
+* **Moteur de calcul : Apache Spark (PySpark)** : Choisi pour sa capacité à traiter des volumes massifs (le fichier complet Open Food Facts fait plusieurs Go) de manière distribuée et pour sa gestion native des schémas complexes.
+* **Stockage : MySQL** : Utilisé comme cible pour le Datamart en raison de sa compatibilité parfaite avec les outils de BI comme Tableau et sa gestion robuste des relations (clés étrangères).
+* **Connectivité : JDBC & ODBC** : Utilisation du connecteur JDBC MySQL pour l'écriture depuis Spark et du pilote ODBC pour la lecture dans Tableau, garantissant une communication standardisée.
+
+### 2. Modélisation : Schéma en Étoile (Star Schema)
+
+Nous avons opté pour une modélisation en étoile car elle est optimisée pour l'analyse décisionnelle.
+
+* **Table de Faits (`fact_nutrition_snapshot`)** : Stocke les mesures quantitatives (calories, nutriments) et les scores. Elle est légère car elle ne contient que des clés numériques et des valeurs décimales.
+* **Tables de Dimensions (`dim_product`, `dim_brand`, etc.)** : Contiennent les attributs descriptifs. Cela permet de filtrer ou de regrouper les données sans dupliquer le texte lourd dans la table de faits.
+
+### 3. Stratégie d'Upsert (Update + Insert)
+
+C'est la méthode de gestion des mises à jour des produits.
+
+* **Problématique** : Un produit Open Food Facts peut être modifié plusieurs fois dans le temps (nouvelle recette, nouveau packaging).
+* **Solution choisie : Dédoublonnage à la source** :
+1. On utilise une **Window Function** (`partitionBy("code")`) ordonnée par la date de modification (`last_modified_t`).
+2. On ne conserve que la ligne la plus récente (`rn=1`).
+3. Lors de l'écriture dans MySQL, le mode `truncate` assure un rafraîchissement complet (Full Reload) pour garantir la cohérence des clés primaires.
+
+
+
+### 4. Flux de données (Data Flow)
+
+1. **Bronze (Raw)** : Lecture du CSV brut avec `inferSchema`.
+2. **Silver (Conformed)** : Nettoyage, normalisation des types (Decimal, Long), et dédoublonnage technique.
+3. **Gold (Datamart)** : Jointures avec les dimensions pour récupérer les clés étrangères (`SK`) et calcul du score de complétude.
+
+---
+
+### Pourquoi cette architecture est-elle robuste ?
+
+* **Évolutivité** : Si vous passez de 1 000 à 1 million de lignes, Spark gérera la charge sans modification du code.
+* **Qualité** : Chaque étape est journalisée dans la table `etl_metrics_logs`, permettant un audit rapide des rejets.
+* **Performance Tableau** : Grâce au schéma en étoile et aux index SQL, les tableaux de bord se chargeront beaucoup plus vite qu'avec un seul gros fichier plat.
+
+**Voulez-vous que je vous aide à dessiner le schéma DDL (le code SQL de création des tables) correspondant exactement à ce schéma en étoile ?**

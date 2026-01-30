@@ -1,0 +1,9 @@
+# Noyau Spark et connectivité
+pyspark==3.5.0
+py4j==0.10.9.7
+
+# Drivers et utilitaires (si installés via pip pour certains environnements)
+# Note : Le connecteur JDBC est généralement géré par Spark (spark.jars.packages)
+# mais ces bibliothèques aident à la gestion des environnements Python.
+pandas>=2.0.0
+numpy>=1.24.0
